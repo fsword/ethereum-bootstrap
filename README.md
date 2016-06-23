@@ -1,6 +1,7 @@
 # Ethereum Bootstrap
 
-通过本文所述方法和项目中的脚本，我们可以快速的搭建好自己的私链进行开发测试。
+基于![Ethereum Bootstrap](https://github.com/janx/ethereum-bootstrap)项目，通过一个简单的docker镜像为以太坊编程提供开发环境。
+开发者使用自己的私链进行开发测试。
 
 仓库中包含的工具有：
 
@@ -11,23 +12,15 @@
 
 **测试账户私钥是放在Github上的公开数据，千万不要用于正式环境中或者公有链上。如果在测试环境之外的地方使用这些私钥，你的资金将会被窃取！**
 
-## 准备
+## 构建自己的docker镜像
 
-1. 在本地安装好[go-ethereum](https://github.com/ethereum/go-ethereum)和[solc](http://solidity.readthedocs.org/en/latest/), 可以执行`geth`和`solc`命令。如果操作系统是ubuntu, 安装官方的ethereum安装包即可。
-2. 将本仓库通过`git clone`命令下载到本地。
-3. 安装[expect](http://expect.sourceforge.net/)，工具脚本用它来自动化一些过程。例如在ubuntu上: `sudo apt-get install expect`
+* git clone https://github.com/fsword/ethereum-bootstrap.git
+* cd ethereum-bootstrap
+* docker build -t image-name .
 
-## 启动geth
+## 环境准备
 
-1. 进入本仓库目录: `cd ethereum-bootstrap`
-2. 导入测试账户私钥: `./bin/import_keys.sh`
-3. 启动私有链节点: `./bin/private_blockchain.sh`. 启动成功后可以看到类似如下输出:
-  ![private-started.png](screenshots/private-started.png)
-4. 此时以太坊交互式控制台已经启动，我们可以开始测试和开发了。
-
-注意：工具脚本假设你的geth安装在默认位置, 可以直接通过`geth`执行。如果`geth`命令安装在非标准的位置，可以设置`GETH`环境变量指定geth可执行文件的路径。例如:
-
-`GETH=/some/weird/dir/geth ./bin/import_keys.sh`
+* docker run -v "/your-data-folder:/data" fsword/ethdev
 
 ## 使用以太坊控制台编译和部署智能合约
 
